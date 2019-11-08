@@ -8,7 +8,8 @@ Concatenates characters from pre-rendered lookup images, then resizes and colors
 Prone to being a bit blurry.
 
 Provides `rendertext` for generating a rendered image of a string and
-`overlaytext!` for directly overlaying text on a loaded image.
+`overlaytext!` for directly overlaying text on a loaded image. Supports 3 monospaced
+fonts: Courier, Courier New, Monaco
 
 ## Generating rendered text
 ```julia
@@ -24,7 +25,7 @@ Provides `rendertext` for generating a rendered image of a string and
 
 ```julia
 using BasicTextRender, ColorTypes
-img = rendertext("Hello world", height=30, color=RGBA(1.0,0.0,0.0,1.0), backgroundColor=RGBA(1.0,1.0,0.0,1.0))
+img = rendertext("Hello world", font="Monaco", height=30, color=RGBA(1.0,0.0,0.0,1.0), backgroundColor=RGBA(1.0,1.0,0.0,1.0))
 ```
 ![img](img2.png)
 
