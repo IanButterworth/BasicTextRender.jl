@@ -1,11 +1,12 @@
 module BasicTextRender
 
-using FileIO, ImageCore, ImageTransformations, ImageFiltering
+using ImageCore, ImageTransformations, ImageFiltering, Serialization
 
 charStack = nothing
 loadedFont = nothing
 kern = ImageFiltering.KernelFactors.IIRGaussian((2,2))
 loadedScale = nothing
+warned = false
 
 """
     rendertext(str::String;
@@ -26,20 +27,20 @@ function rendertext(str::String;
         color::ColorTypes.RGBA{Float64}=ColorTypes.RGBA(0.0,0.0,0.0,1.0),
         backgroundColor::ColorTypes.RGBA{Float64}=ColorTypes.RGBA(0.0,0.0,0.0,0.0))
 
-    global charStack, loadedFont, kern, loadedScale
+    global charStack, loadedFont, kern, loadedScale, warned
 
     lookupdir = joinpath(dirname(@__DIR__),"gen","fonts",font)
-    !isdir(lookupdir) && error("Font not supported")
+    !isdir(lookupdir) && error("""Font "$font" not supported. Try "Courier", "Courier New" or "Monaco" """)
 
     if loadedFont != font
-        charStack = map(x->Float64.(channelview(load(joinpath(lookupdir,"$x.png")))[1,:,:]),0:255)
+        charStack = Serialization.deserialize(joinpath(lookupdir,"charStack"))
         loadedFont = font
     end
 
     chars = collect(str)
     codes = Int.(codepoint.(chars)) .+ 1
     raw_chars = view(charStack, codes)
-    raw_img = hcat(raw_chars...)
+    raw_img = hcat(raw_chars...) ./ 255
 
     colormap = ImageCore.colorsigned(RGBA(0.0,0.0,0.0,0.0), backgroundColor, color)
 
@@ -54,7 +55,7 @@ function rendertext(str::String;
 
         return colormap.(ImageTransformations.imresize(ImageFiltering.imfilter(raw_img, kern, NA()), ratio=scale))
     else
-        @warn "Height exceeds font lookup table height. Sharpness will be suboptimal"
+        !warned && (@warn "Height exceeds font lookup table height. Sharpness will be suboptimal") && (warned = true)
         return colormap.(ImageTransformations.imresize(raw_img, ratio=scale))
     end
 end

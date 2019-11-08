@@ -1,6 +1,5 @@
-using Luxor, FileIO, ImageCore, Statistics, DelimitedFiles
-
-size = 80
+using Luxor, FileIO, ImageCore, Statistics, DelimitedFiles, Serialization
+fontheight = 80
 
 for font in ["Courier","Courier New","Monaco"]
     @info "Rendering $font characters"
@@ -19,13 +18,11 @@ for font in ["Courier","Courier New","Monaco"]
         fontface(font)
         setcolor("white")
         setopacity(1)
-        fontsize(size)
+        fontsize(fontheight)
         text(string(char), Point(0,0), halign = :bottom,  valign = :left)
         finish()
-        #preview()
         img = load(file)
         pixcol = mean(img, dims=1)[1,:]
-        #@show pixrow[1]
         xOccupied = findall(pixcol .!= RGB(0,0,0))
         if length(xOccupied)>2
             push!(xFirsts, Int(xOccupied[1]))
@@ -42,10 +39,15 @@ for font in ["Courier","Courier New","Monaco"]
     x_last_pix = maximum(xLasts)
     y_first_pix = minimum(yFirsts)
     y_last_pix = maximum(yLasts)
+
+    charIDX = 0
+    charStack = Vector{Array{Float64}}(undef,256)
+
     for charIDX in 0:255
         file = joinpath(fontdir,"$charIDX.png")
         img = load(file)
-        save(file, img[y_first_pix:y_last_pix, x_first_pix:x_last_pix,])
+        charStack[charIDX+1] = round.(UInt8,channelview(img[y_first_pix:y_last_pix, x_first_pix:x_last_pix])[1,:,:] .* 255)
+        rm(file)
     end
-
+    Serialization.serialize(joinpath(fontdir,"charStack"), charStack)
 end

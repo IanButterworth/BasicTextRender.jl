@@ -2,6 +2,9 @@
 
 Warning.. very basic.. More of an experiment..
 Concatenates characters from pre-rendered lookup images, then resizes and colors.
+
+100% julia, no libs.
+
 Prone to being a bit blurry.
 
 Provides `rendertext` for generating a rendered image of a string and
@@ -40,4 +43,4 @@ save("logo.png", img)
 using BenchmarkTools
 @btime rendertext("Hello world", height=30) #1.052 ms (667 allocations: 2.20 MiB)
 ```
-The first time `rendertext` runs it will take ~10 seconds, as it loads the character lookup table.
+The first time `rendertext` runs it should take ~4 seconds, as it loads the character lookup table.

@@ -1,4 +1,4 @@
-using Test, BasicTextRender, ImageCore, FileIO
+using Test, BasicTextRender, ImageCore
 
 @testset "BasicTextRender.jl tests" begin
     img = rendertext("Hello world")
