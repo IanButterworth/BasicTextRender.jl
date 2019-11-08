@@ -2,6 +2,8 @@
 
 Warning.. very basic.. More of an experiment..
 Concatenates characters from pre-rendered lookup images, then resizes and colors.
+Provides `rendertext` for generating a rendered image of a string and
+`overlaytext!` for directly overlaying text on a loaded image.
 
 ```julia
 > using BasicTextRender
@@ -19,6 +21,8 @@ using FileIO, ColorTypes
 img = rendertext("Hello world", height=30, color=RGBA(1.0,0.0,0.0,1.0), backgroundColor=RGBA(1.0,1.0,0.0,1.0))
 ```
 ![img](img2.png)
+
+
 
 ```julia
 using BasicTextRender, FileIO, ImageCore
