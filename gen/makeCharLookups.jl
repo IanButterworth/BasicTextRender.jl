@@ -1,7 +1,7 @@
 using Luxor, FileIO, ImageCore, Statistics, DelimitedFiles, Serialization
 fontheight = 80
 
-for font in ["Courier","Courier New","Monaco"]
+for font in ["Courier"]
     @info "Rendering $font characters"
     fontdir = joinpath(@__DIR__,"fonts",font)
     !isdir(fontdir) && mkdir(fontdir)

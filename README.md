@@ -3,8 +3,10 @@
 Warning.. very basic.. More of an experiment.. Concatenates characters from pre-rendered lookup images, then resizes and colors. 100% julia, no libs. Prone to being a bit blurry.
 
 Provides `rendertext` for generating a rendered image of a string and
-`overlaytext!` for directly overlaying text on a loaded image. Supports 3 monospaced
-fonts: Courier, Courier New, Monaco
+`overlaytext!` for directly overlaying text on a loaded image.
+
+Currently built to support truly monospaced fonts only, and Courier is the only font that is provided.
+(other open source licensed fonts welcome via PR, see `gen/makeCharLookups.jl`)
 
 ## Generating rendered text
 ```julia
@@ -20,7 +22,7 @@ fonts: Courier, Courier New, Monaco
 
 ```julia
 using BasicTextRender, ColorTypes
-img = rendertext("Hello world", font="Monaco", height=30, color=RGBA(1.0,0.0,0.0,1.0), backgroundColor=RGBA(1.0,1.0,0.0,1.0))
+img = rendertext("Hello world", height=30, color=RGBA(1.0,0.0,0.0,1.0), backgroundColor=RGBA(1.0,1.0,0.0,1.0))
 ```
 ![img](img2.png)
 
