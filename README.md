@@ -1,8 +1,9 @@
-# BasicTextRender
+# BasicTextRender.jl
 
 Warning.. very basic.. More of a experiment..
 
 Concatenates characters from lookup images, then resizes and colors.
+![logo](logo.png)
 
 ```julia
 > using BasicTextRender
@@ -20,6 +21,15 @@ using FileIO, ColorTypes
 img = rendertext("Hello world", height=30, color=RGBA(1.0,0.0,0.0,1.0), backgroundColor=RGBA(1.0,1.0,0.0,1.0))
 ```
 ![img](img2.png)
+
+```julia
+using BasicTextRender, FileIO, ImageCore
+img = rand(RGBA{Float64},80,700)
+overlaytext!(img, "BasicTextRender.jl", 60, (10,40))
+save("logo.png", img)
+```
+(See up top)
+
 
 ```julia
 using BenchmarkTools

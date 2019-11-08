@@ -59,5 +59,22 @@ function rendertext(str::String;
     end
 end
 
-export rendertext
+"""
+    overlaytext!(img, str::String, height::Int, bottomleft::Tuple{Int,Int};
+            font::String="Courier",
+            color::ColorTypes.RGBA{Float64}=ColorTypes.RGBA(0.0,0.0,0.0,1.0))
+
+Overlay text on `img` in-place.
+"""
+function overlaytext!(img, str::String, height::Int, bottomleft::Tuple{Int,Int};
+            font::String="Courier",
+            color::ColorTypes.RGBA{Float64}=ColorTypes.RGBA(0.0,0.0,0.0,1.0))
+
+    img_text = rendertext(str, font=font, height=height, color=color)
+    width = size(img_text,2)
+    x, y = bottomleft
+    img[x:x+height-1, y:y+width-1] .= ((1 .- alpha.(img_text)) .* img[x:x+height-1, y:y+width-1]) .+ (alpha.(img_text) .* img_text)
+end
+
+export rendertext, overlaytext!
 end #module
