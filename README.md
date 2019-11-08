@@ -2,6 +2,8 @@
 
 Warning.. very basic.. More of an experiment..
 Concatenates characters from pre-rendered lookup images, then resizes and colors.
+Prone to being a bit blurry.
+
 Provides `rendertext` for generating a rendered image of a string and
 `overlaytext!` for directly overlaying text on a loaded image.
 
