@@ -1,9 +1,7 @@
 # BasicTextRender.jl
 
-Warning.. very basic.. More of a experiment..
-
-Concatenates characters from lookup images, then resizes and colors.
-![logo](logo.png)
+Warning.. very basic.. More of an experiment..
+Concatenates characters from pre-rendered lookup images, then resizes and colors.
 
 ```julia
 > using BasicTextRender
@@ -28,7 +26,7 @@ img = rand(RGBA{Float64},80,700)
 overlaytext!(img, "BasicTextRender.jl", 60, (10,40))
 save("logo.png", img)
 ```
-(See up top)
+![logo](logo.png)
 
 
 ```julia
