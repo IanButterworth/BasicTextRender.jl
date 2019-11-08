@@ -9,8 +9,8 @@ fonts: Courier, Courier New, Monaco
 ## Generating rendered text
 ```julia
 > using BasicTextRender
-> img = rendertext("Hello world", height=30)
-30×190 Array{RGBA{Float64},2} with eltype RGBA{Float64}:
+> img = rendertext("Hello world", height=50)
+50×316 Array{RGBA{Float64},2} with eltype RGBA{Float64}:
 ...
 > using FileIO
 > save("img.png", img)
