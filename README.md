@@ -1,4 +1,4 @@
-# BasicTextRender
+# BasicTextRender.jl
 
 Warning.. very basic.. More of a experiment..
 
