@@ -49,8 +49,12 @@ function rendertext(str::String;
         return colormap.(raw_img)
     elseif scale < 1
         if loadedScale != scale
-            σ = 0.5 * (1/scale)
-            kern = ImageFiltering.KernelFactors.IIRGaussian((σ,σ))
+            σ = 0.25 * (1/scale)
+            if σ < 1
+                kern = ImageFiltering.KernelFactors.gaussian((σ,σ))
+            else
+                kern = ImageFiltering.KernelFactors.IIRGaussian((σ,σ))
+            end
         end
 
         return colormap.(ImageTransformations.imresize(ImageFiltering.imfilter(raw_img, kern, NA()), ratio=scale))

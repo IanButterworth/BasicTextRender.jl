@@ -35,8 +35,10 @@ save("logo.png", img)
 ![logo](logo.png)
 
 ## Speed (slow then fast-ish)
+The first time `rendertext` runs it should take about 5 seconds, as it loads the
+character lookup table, but subsequent calls for the same scale and font will be fast.
+
 ```julia
 using BenchmarkTools
-@btime rendertext("Hello world", height=30) #1.052 ms (667 allocations: 2.20 MiB)
+@btime rendertext("Hello world", height=30) #599.991 μs (352 allocations: 2.28 MiB)
 ```
-The first time `rendertext` runs it should take ~4 seconds, as it loads the character lookup table.
