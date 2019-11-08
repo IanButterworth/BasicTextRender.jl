@@ -1,6 +1,6 @@
 # BasicTextRender.jl
 
-Warning.. very basic.. More of an experiment.. Concatenates characters from pre-rendered lookup images, then resizes and colors. 100% julia, no libs. Prone to being a bit blurry.
+Warning.. very basic.. More of an experiment.. Concatenates characters from pre-rendered lookup images, then resizes and colors. 100% julia, no libs. Gets blurry if font height is greater than ~90 pixels.
 
 Provides `rendertext` for generating a rendered image of a string and
 `overlaytext!` for directly overlaying text on a loaded image.
